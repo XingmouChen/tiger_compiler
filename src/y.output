@@ -1,0 +1,2663 @@
+Terminals unused in grammar
+
+   STRING
+   INT
+   COMMENT
+
+
+State 2 conflicts: 1 shift/reduce
+State 31 conflicts: 1 shift/reduce
+State 33 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: expr
+
+    2 expr: MINUS expr
+    3     | NUM
+    4     | STR
+    5     | NIL
+    6     | lvalue
+    7     | expr PLUS expr
+    8     | expr MINUS expr
+    9     | expr TIMES expr
+   10     | expr DIVIDE expr
+   11     | expr OR expr
+   12     | expr AND expr
+   13     | expr EQ expr
+   14     | expr LT expr
+   15     | expr LE expr
+   16     | expr GT expr
+   17     | expr GE expr
+   18     | expr NEQ expr
+   19     | lvalue ASSIGN expr
+   20     | ID LPAREN exprlist RPAREN
+   21     | ID LPAREN RPAREN
+   22     | LPAREN exprseqlist RPAREN
+   23     | LPAREN RPAREN
+   24     | ID LBRACE fieldlist RBRACE
+   25     | ID LBRACE RBRACE
+   26     | ID LBRACK expr RBRACK OF expr
+   27     | IF expr THEN expr
+   28     | IF expr THEN expr ELSE expr
+   29     | WHILE expr DO expr
+   30     | FOR ID ASSIGN expr TO expr DO expr
+   31     | BREAK
+   32     | LET declarationlist IN END
+   33     | LET declarationlist IN exprseqlist END
+
+   34 lvalue: lvalue LBRACK expr RBRACK
+   35       | ID LBRACK expr RBRACK
+   36       | lvalue DOT ID
+   37       | ID
+
+   38 exprlist: expr
+   39         | expr COMMA exprlist
+
+   40 exprseqlist: expr
+   41            | expr SEMICOLON exprseqlist
+
+   42 fieldlist: exprfield
+   43          | exprfield COMMA fieldlist
+
+   44 exprfield: ID EQ expr
+
+   45 declarationlist: declaration
+   46                | declaration declarationlist
+
+   47 declaration: typedeclist
+   48            | functiondeclist
+   49            | variabledeclaration
+
+   50 typedeclist: typedeclaration
+   51            | typedeclaration typedeclist
+
+   52 typedeclaration: TYPE ID EQ type
+
+   53 type: ID
+   54     | LBRACE typefields RBRACE
+   55     | LBRACE RBRACE
+   56     | ARRAY OF ID
+
+   57 typefields: typefield
+   58           | typefield COMMA typefields
+
+   59 typefield: ID COLON ID
+
+   60 functiondeclist: functiondeclaration
+   61                | functiondeclaration functiondeclist
+
+   62 functiondeclaration: FUNCTION ID LPAREN RPAREN EQ expr
+   63                    | FUNCTION ID LPAREN typefields RPAREN EQ expr
+   64                    | FUNCTION ID LPAREN RPAREN COLON ID EQ expr
+   65                    | FUNCTION ID LPAREN typefields RPAREN COLON ID EQ expr
+
+   66 variabledeclaration: VAR ID ASSIGN expr
+   67                    | VAR ID COLON ID ASSIGN expr
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUM (258) 3
+ID (259) 20 21 24 25 26 30 35 36 37 44 52 53 56 59 62 63 64 65 66 67
+STR (260) 4
+COMMA (261) 39 43 58
+COLON (262) 59 64 65 67
+SEMICOLON (263) 41
+LPAREN (264) 20 21 22 23 62 63 64 65
+RPAREN (265) 20 21 22 23 62 63 64 65
+LBRACK (266) 26 34 35
+RBRACK (267) 26 34 35
+LBRACE (268) 24 25 54 55
+RBRACE (269) 24 25 54 55
+DOT (270) 36
+PLUS (271) 7
+MINUS (272) 2 8
+TIMES (273) 9
+DIVIDE (274) 10
+EQ (275) 13 44 52 62 63 64 65
+NEQ (276) 18
+LT (277) 14
+LE (278) 15
+GT (279) 16
+GE (280) 17
+AND (281) 12
+OR (282) 11
+ASSIGN (283) 19 30 66 67
+ARRAY (284) 56
+IF (285) 27 28
+THEN (286) 27 28
+ELSE (287) 28
+WHILE (288) 29
+FOR (289) 30
+TO (290) 30
+DO (291) 29 30
+LET (292) 32 33
+IN (293) 32 33
+END (294) 32 33
+OF (295) 26 56
+BREAK (296) 31
+NIL (297) 5
+FUNCTION (298) 62 63 64 65
+VAR (299) 66 67
+TYPE (300) 52
+STRING (301)
+INT (302)
+COMMENT (303)
+UMINUS (304)
+
+
+Nonterminals, with rules where they appear
+
+$accept (50)
+    on left: 0
+program (51)
+    on left: 1, on right: 0
+expr (52)
+    on left: 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22
+    23 24 25 26 27 28 29 30 31 32 33, on right: 1 2 7 8 9 10 11 12
+    13 14 15 16 17 18 19 26 27 28 29 30 34 35 38 39 40 41 44 62 63
+    64 65 66 67
+lvalue (53)
+    on left: 34 35 36 37, on right: 6 19 34 36
+exprlist (54)
+    on left: 38 39, on right: 20 39
+exprseqlist (55)
+    on left: 40 41, on right: 22 33 41
+fieldlist (56)
+    on left: 42 43, on right: 24 43
+exprfield (57)
+    on left: 44, on right: 42 43
+declarationlist (58)
+    on left: 45 46, on right: 32 33 46
+declaration (59)
+    on left: 47 48 49, on right: 45 46
+typedeclist (60)
+    on left: 50 51, on right: 47 51
+typedeclaration (61)
+    on left: 52, on right: 50 51
+type (62)
+    on left: 53 54 55 56, on right: 52
+typefields (63)
+    on left: 57 58, on right: 54 58 63 65
+typefield (64)
+    on left: 59, on right: 57 58
+functiondeclist (65)
+    on left: 60 61, on right: 48 61
+functiondeclaration (66)
+    on left: 62 63 64 65, on right: 60 61
+variabledeclaration (67)
+    on left: 66 67, on right: 49
+
+
+State 0
+
+    0 $accept: . program $end
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    program  go to state 12
+    expr     go to state 13
+    lvalue   go to state 14
+
+
+State 1
+
+    3 expr: NUM .
+
+    $default  reduce using rule 3 (expr)
+
+
+State 2
+
+   20 expr: ID . LPAREN exprlist RPAREN
+   21     | ID . LPAREN RPAREN
+   24     | ID . LBRACE fieldlist RBRACE
+   25     | ID . LBRACE RBRACE
+   26     | ID . LBRACK expr RBRACK OF expr
+   35 lvalue: ID . LBRACK expr RBRACK
+   37       | ID .
+
+    LPAREN  shift, and go to state 15
+    LBRACK  shift, and go to state 16
+    LBRACE  shift, and go to state 17
+
+    LBRACK    [reduce using rule 37 (lvalue)]
+    $default  reduce using rule 37 (lvalue)
+
+
+State 3
+
+    4 expr: STR .
+
+    $default  reduce using rule 4 (expr)
+
+
+State 4
+
+   22 expr: LPAREN . exprseqlist RPAREN
+   23     | LPAREN . RPAREN
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    RPAREN  shift, and go to state 18
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr         go to state 19
+    lvalue       go to state 14
+    exprseqlist  go to state 20
+
+
+State 5
+
+    2 expr: MINUS . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 21
+    lvalue  go to state 14
+
+
+State 6
+
+   27 expr: IF . expr THEN expr
+   28     | IF . expr THEN expr ELSE expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 22
+    lvalue  go to state 14
+
+
+State 7
+
+   29 expr: WHILE . expr DO expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 23
+    lvalue  go to state 14
+
+
+State 8
+
+   30 expr: FOR . ID ASSIGN expr TO expr DO expr
+
+    ID  shift, and go to state 24
+
+
+State 9
+
+   32 expr: LET . declarationlist IN END
+   33     | LET . declarationlist IN exprseqlist END
+
+    FUNCTION  shift, and go to state 25
+    VAR       shift, and go to state 26
+    TYPE      shift, and go to state 27
+
+    declarationlist      go to state 28
+    declaration          go to state 29
+    typedeclist          go to state 30
+    typedeclaration      go to state 31
+    functiondeclist      go to state 32
+    functiondeclaration  go to state 33
+    variabledeclaration  go to state 34
+
+
+State 10
+
+   31 expr: BREAK .
+
+    $default  reduce using rule 31 (expr)
+
+
+State 11
+
+    5 expr: NIL .
+
+    $default  reduce using rule 5 (expr)
+
+
+State 12
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 35
+
+
+State 13
+
+    1 program: expr .
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 1 (program)
+
+
+State 14
+
+    6 expr: lvalue .
+   19     | lvalue . ASSIGN expr
+   34 lvalue: lvalue . LBRACK expr RBRACK
+   36       | lvalue . DOT ID
+
+    LBRACK  shift, and go to state 48
+    DOT     shift, and go to state 49
+    ASSIGN  shift, and go to state 50
+
+    $default  reduce using rule 6 (expr)
+
+
+State 15
+
+   20 expr: ID LPAREN . exprlist RPAREN
+   21     | ID LPAREN . RPAREN
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    RPAREN  shift, and go to state 51
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr      go to state 52
+    lvalue    go to state 14
+    exprlist  go to state 53
+
+
+State 16
+
+   26 expr: ID LBRACK . expr RBRACK OF expr
+   35 lvalue: ID LBRACK . expr RBRACK
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 54
+    lvalue  go to state 14
+
+
+State 17
+
+   24 expr: ID LBRACE . fieldlist RBRACE
+   25     | ID LBRACE . RBRACE
+
+    ID      shift, and go to state 55
+    RBRACE  shift, and go to state 56
+
+    fieldlist  go to state 57
+    exprfield  go to state 58
+
+
+State 18
+
+   23 expr: LPAREN RPAREN .
+
+    $default  reduce using rule 23 (expr)
+
+
+State 19
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   40 exprseqlist: expr .
+   41            | expr . SEMICOLON exprseqlist
+
+    SEMICOLON  shift, and go to state 59
+    PLUS       shift, and go to state 36
+    MINUS      shift, and go to state 37
+    TIMES      shift, and go to state 38
+    DIVIDE     shift, and go to state 39
+    EQ         shift, and go to state 40
+    NEQ        shift, and go to state 41
+    LT         shift, and go to state 42
+    LE         shift, and go to state 43
+    GT         shift, and go to state 44
+    GE         shift, and go to state 45
+    AND        shift, and go to state 46
+    OR         shift, and go to state 47
+
+    $default  reduce using rule 40 (exprseqlist)
+
+
+State 20
+
+   22 expr: LPAREN exprseqlist . RPAREN
+
+    RPAREN  shift, and go to state 60
+
+
+State 21
+
+    2 expr: MINUS expr .
+    7     | expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    $default  reduce using rule 2 (expr)
+
+
+State 22
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   27     | IF expr . THEN expr
+   28     | IF expr . THEN expr ELSE expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+    THEN    shift, and go to state 61
+
+
+State 23
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   29     | WHILE expr . DO expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+    DO      shift, and go to state 62
+
+
+State 24
+
+   30 expr: FOR ID . ASSIGN expr TO expr DO expr
+
+    ASSIGN  shift, and go to state 63
+
+
+State 25
+
+   62 functiondeclaration: FUNCTION . ID LPAREN RPAREN EQ expr
+   63                    | FUNCTION . ID LPAREN typefields RPAREN EQ expr
+   64                    | FUNCTION . ID LPAREN RPAREN COLON ID EQ expr
+   65                    | FUNCTION . ID LPAREN typefields RPAREN COLON ID EQ expr
+
+    ID  shift, and go to state 64
+
+
+State 26
+
+   66 variabledeclaration: VAR . ID ASSIGN expr
+   67                    | VAR . ID COLON ID ASSIGN expr
+
+    ID  shift, and go to state 65
+
+
+State 27
+
+   52 typedeclaration: TYPE . ID EQ type
+
+    ID  shift, and go to state 66
+
+
+State 28
+
+   32 expr: LET declarationlist . IN END
+   33     | LET declarationlist . IN exprseqlist END
+
+    IN  shift, and go to state 67
+
+
+State 29
+
+   45 declarationlist: declaration .
+   46                | declaration . declarationlist
+
+    FUNCTION  shift, and go to state 25
+    VAR       shift, and go to state 26
+    TYPE      shift, and go to state 27
+
+    $default  reduce using rule 45 (declarationlist)
+
+    declarationlist      go to state 68
+    declaration          go to state 29
+    typedeclist          go to state 30
+    typedeclaration      go to state 31
+    functiondeclist      go to state 32
+    functiondeclaration  go to state 33
+    variabledeclaration  go to state 34
+
+
+State 30
+
+   47 declaration: typedeclist .
+
+    $default  reduce using rule 47 (declaration)
+
+
+State 31
+
+   50 typedeclist: typedeclaration .
+   51            | typedeclaration . typedeclist
+
+    TYPE  shift, and go to state 27
+
+    TYPE      [reduce using rule 50 (typedeclist)]
+    $default  reduce using rule 50 (typedeclist)
+
+    typedeclist      go to state 69
+    typedeclaration  go to state 31
+
+
+State 32
+
+   48 declaration: functiondeclist .
+
+    $default  reduce using rule 48 (declaration)
+
+
+State 33
+
+   60 functiondeclist: functiondeclaration .
+   61                | functiondeclaration . functiondeclist
+
+    FUNCTION  shift, and go to state 25
+
+    FUNCTION  [reduce using rule 60 (functiondeclist)]
+    $default  reduce using rule 60 (functiondeclist)
+
+    functiondeclist      go to state 70
+    functiondeclaration  go to state 33
+
+
+State 34
+
+   49 declaration: variabledeclaration .
+
+    $default  reduce using rule 49 (declaration)
+
+
+State 35
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 36
+
+    7 expr: expr PLUS . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 71
+    lvalue  go to state 14
+
+
+State 37
+
+    8 expr: expr MINUS . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 72
+    lvalue  go to state 14
+
+
+State 38
+
+    9 expr: expr TIMES . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 73
+    lvalue  go to state 14
+
+
+State 39
+
+   10 expr: expr DIVIDE . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 74
+    lvalue  go to state 14
+
+
+State 40
+
+   13 expr: expr EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 75
+    lvalue  go to state 14
+
+
+State 41
+
+   18 expr: expr NEQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 76
+    lvalue  go to state 14
+
+
+State 42
+
+   14 expr: expr LT . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 77
+    lvalue  go to state 14
+
+
+State 43
+
+   15 expr: expr LE . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 78
+    lvalue  go to state 14
+
+
+State 44
+
+   16 expr: expr GT . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 79
+    lvalue  go to state 14
+
+
+State 45
+
+   17 expr: expr GE . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 80
+    lvalue  go to state 14
+
+
+State 46
+
+   12 expr: expr AND . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 81
+    lvalue  go to state 14
+
+
+State 47
+
+   11 expr: expr OR . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 82
+    lvalue  go to state 14
+
+
+State 48
+
+   34 lvalue: lvalue LBRACK . expr RBRACK
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 83
+    lvalue  go to state 14
+
+
+State 49
+
+   36 lvalue: lvalue DOT . ID
+
+    ID  shift, and go to state 84
+
+
+State 50
+
+   19 expr: lvalue ASSIGN . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 85
+    lvalue  go to state 14
+
+
+State 51
+
+   21 expr: ID LPAREN RPAREN .
+
+    $default  reduce using rule 21 (expr)
+
+
+State 52
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   38 exprlist: expr .
+   39         | expr . COMMA exprlist
+
+    COMMA   shift, and go to state 86
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 38 (exprlist)
+
+
+State 53
+
+   20 expr: ID LPAREN exprlist . RPAREN
+
+    RPAREN  shift, and go to state 87
+
+
+State 54
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   26     | ID LBRACK expr . RBRACK OF expr
+   35 lvalue: ID LBRACK expr . RBRACK
+
+    RBRACK  shift, and go to state 88
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+
+State 55
+
+   44 exprfield: ID . EQ expr
+
+    EQ  shift, and go to state 89
+
+
+State 56
+
+   25 expr: ID LBRACE RBRACE .
+
+    $default  reduce using rule 25 (expr)
+
+
+State 57
+
+   24 expr: ID LBRACE fieldlist . RBRACE
+
+    RBRACE  shift, and go to state 90
+
+
+State 58
+
+   42 fieldlist: exprfield .
+   43          | exprfield . COMMA fieldlist
+
+    COMMA  shift, and go to state 91
+
+    $default  reduce using rule 42 (fieldlist)
+
+
+State 59
+
+   41 exprseqlist: expr SEMICOLON . exprseqlist
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr         go to state 19
+    lvalue       go to state 14
+    exprseqlist  go to state 92
+
+
+State 60
+
+   22 expr: LPAREN exprseqlist RPAREN .
+
+    $default  reduce using rule 22 (expr)
+
+
+State 61
+
+   27 expr: IF expr THEN . expr
+   28     | IF expr THEN . expr ELSE expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 93
+    lvalue  go to state 14
+
+
+State 62
+
+   29 expr: WHILE expr DO . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 94
+    lvalue  go to state 14
+
+
+State 63
+
+   30 expr: FOR ID ASSIGN . expr TO expr DO expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 95
+    lvalue  go to state 14
+
+
+State 64
+
+   62 functiondeclaration: FUNCTION ID . LPAREN RPAREN EQ expr
+   63                    | FUNCTION ID . LPAREN typefields RPAREN EQ expr
+   64                    | FUNCTION ID . LPAREN RPAREN COLON ID EQ expr
+   65                    | FUNCTION ID . LPAREN typefields RPAREN COLON ID EQ expr
+
+    LPAREN  shift, and go to state 96
+
+
+State 65
+
+   66 variabledeclaration: VAR ID . ASSIGN expr
+   67                    | VAR ID . COLON ID ASSIGN expr
+
+    COLON   shift, and go to state 97
+    ASSIGN  shift, and go to state 98
+
+
+State 66
+
+   52 typedeclaration: TYPE ID . EQ type
+
+    EQ  shift, and go to state 99
+
+
+State 67
+
+   32 expr: LET declarationlist IN . END
+   33     | LET declarationlist IN . exprseqlist END
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    END     shift, and go to state 100
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr         go to state 19
+    lvalue       go to state 14
+    exprseqlist  go to state 101
+
+
+State 68
+
+   46 declarationlist: declaration declarationlist .
+
+    $default  reduce using rule 46 (declarationlist)
+
+
+State 69
+
+   51 typedeclist: typedeclaration typedeclist .
+
+    $default  reduce using rule 51 (typedeclist)
+
+
+State 70
+
+   61 functiondeclist: functiondeclaration functiondeclist .
+
+    $default  reduce using rule 61 (functiondeclist)
+
+
+State 71
+
+    7 expr: expr . PLUS expr
+    7     | expr PLUS expr .
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    $default  reduce using rule 7 (expr)
+
+
+State 72
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    8     | expr MINUS expr .
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    $default  reduce using rule 8 (expr)
+
+
+State 73
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+    9     | expr TIMES expr .
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    $default  reduce using rule 9 (expr)
+
+
+State 74
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   10     | expr DIVIDE expr .
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    $default  reduce using rule 10 (expr)
+
+
+State 75
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   13     | expr EQ expr .
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 13 (expr)
+
+
+State 76
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   18     | expr NEQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 18 (expr)
+
+
+State 77
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   14     | expr LT expr .
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 14 (expr)
+
+
+State 78
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   15     | expr LE expr .
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 15 (expr)
+
+
+State 79
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   16     | expr GT expr .
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 16 (expr)
+
+
+State 80
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   17     | expr GE expr .
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    LT   error (nonassociative)
+    LE   error (nonassociative)
+    GT   error (nonassociative)
+    GE   error (nonassociative)
+
+    $default  reduce using rule 17 (expr)
+
+
+State 81
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   12     | expr AND expr .
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+
+    $default  reduce using rule 12 (expr)
+
+
+State 82
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   11     | expr OR expr .
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+
+    $default  reduce using rule 11 (expr)
+
+
+State 83
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   34 lvalue: lvalue LBRACK expr . RBRACK
+
+    RBRACK  shift, and go to state 102
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+
+State 84
+
+   36 lvalue: lvalue DOT ID .
+
+    $default  reduce using rule 36 (lvalue)
+
+
+State 85
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   19     | lvalue ASSIGN expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 19 (expr)
+
+
+State 86
+
+   39 exprlist: expr COMMA . exprlist
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr      go to state 52
+    lvalue    go to state 14
+    exprlist  go to state 103
+
+
+State 87
+
+   20 expr: ID LPAREN exprlist RPAREN .
+
+    $default  reduce using rule 20 (expr)
+
+
+State 88
+
+   26 expr: ID LBRACK expr RBRACK . OF expr
+   35 lvalue: ID LBRACK expr RBRACK .
+
+    OF  shift, and go to state 104
+
+    $default  reduce using rule 35 (lvalue)
+
+
+State 89
+
+   44 exprfield: ID EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 105
+    lvalue  go to state 14
+
+
+State 90
+
+   24 expr: ID LBRACE fieldlist RBRACE .
+
+    $default  reduce using rule 24 (expr)
+
+
+State 91
+
+   43 fieldlist: exprfield COMMA . fieldlist
+
+    ID  shift, and go to state 55
+
+    fieldlist  go to state 106
+    exprfield  go to state 58
+
+
+State 92
+
+   41 exprseqlist: expr SEMICOLON exprseqlist .
+
+    $default  reduce using rule 41 (exprseqlist)
+
+
+State 93
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   27     | IF expr THEN expr .
+   28     | IF expr THEN expr . ELSE expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+    ELSE    shift, and go to state 107
+
+    $default  reduce using rule 27 (expr)
+
+
+State 94
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   29     | WHILE expr DO expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 29 (expr)
+
+
+State 95
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   30     | FOR ID ASSIGN expr . TO expr DO expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+    TO      shift, and go to state 108
+
+
+State 96
+
+   62 functiondeclaration: FUNCTION ID LPAREN . RPAREN EQ expr
+   63                    | FUNCTION ID LPAREN . typefields RPAREN EQ expr
+   64                    | FUNCTION ID LPAREN . RPAREN COLON ID EQ expr
+   65                    | FUNCTION ID LPAREN . typefields RPAREN COLON ID EQ expr
+
+    ID      shift, and go to state 109
+    RPAREN  shift, and go to state 110
+
+    typefields  go to state 111
+    typefield   go to state 112
+
+
+State 97
+
+   67 variabledeclaration: VAR ID COLON . ID ASSIGN expr
+
+    ID  shift, and go to state 113
+
+
+State 98
+
+   66 variabledeclaration: VAR ID ASSIGN . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 114
+    lvalue  go to state 14
+
+
+State 99
+
+   52 typedeclaration: TYPE ID EQ . type
+
+    ID      shift, and go to state 115
+    LBRACE  shift, and go to state 116
+    ARRAY   shift, and go to state 117
+
+    type  go to state 118
+
+
+State 100
+
+   32 expr: LET declarationlist IN END .
+
+    $default  reduce using rule 32 (expr)
+
+
+State 101
+
+   33 expr: LET declarationlist IN exprseqlist . END
+
+    END  shift, and go to state 119
+
+
+State 102
+
+   34 lvalue: lvalue LBRACK expr RBRACK .
+
+    $default  reduce using rule 34 (lvalue)
+
+
+State 103
+
+   39 exprlist: expr COMMA exprlist .
+
+    $default  reduce using rule 39 (exprlist)
+
+
+State 104
+
+   26 expr: ID LBRACK expr RBRACK OF . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 120
+    lvalue  go to state 14
+
+
+State 105
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   44 exprfield: ID EQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 44 (exprfield)
+
+
+State 106
+
+   43 fieldlist: exprfield COMMA fieldlist .
+
+    $default  reduce using rule 43 (fieldlist)
+
+
+State 107
+
+   28 expr: IF expr THEN expr ELSE . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 121
+    lvalue  go to state 14
+
+
+State 108
+
+   30 expr: FOR ID ASSIGN expr TO . expr DO expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 122
+    lvalue  go to state 14
+
+
+State 109
+
+   59 typefield: ID . COLON ID
+
+    COLON  shift, and go to state 123
+
+
+State 110
+
+   62 functiondeclaration: FUNCTION ID LPAREN RPAREN . EQ expr
+   64                    | FUNCTION ID LPAREN RPAREN . COLON ID EQ expr
+
+    COLON  shift, and go to state 124
+    EQ     shift, and go to state 125
+
+
+State 111
+
+   63 functiondeclaration: FUNCTION ID LPAREN typefields . RPAREN EQ expr
+   65                    | FUNCTION ID LPAREN typefields . RPAREN COLON ID EQ expr
+
+    RPAREN  shift, and go to state 126
+
+
+State 112
+
+   57 typefields: typefield .
+   58           | typefield . COMMA typefields
+
+    COMMA  shift, and go to state 127
+
+    $default  reduce using rule 57 (typefields)
+
+
+State 113
+
+   67 variabledeclaration: VAR ID COLON ID . ASSIGN expr
+
+    ASSIGN  shift, and go to state 128
+
+
+State 114
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   66 variabledeclaration: VAR ID ASSIGN expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 66 (variabledeclaration)
+
+
+State 115
+
+   53 type: ID .
+
+    $default  reduce using rule 53 (type)
+
+
+State 116
+
+   54 type: LBRACE . typefields RBRACE
+   55     | LBRACE . RBRACE
+
+    ID      shift, and go to state 109
+    RBRACE  shift, and go to state 129
+
+    typefields  go to state 130
+    typefield   go to state 112
+
+
+State 117
+
+   56 type: ARRAY . OF ID
+
+    OF  shift, and go to state 131
+
+
+State 118
+
+   52 typedeclaration: TYPE ID EQ type .
+
+    $default  reduce using rule 52 (typedeclaration)
+
+
+State 119
+
+   33 expr: LET declarationlist IN exprseqlist END .
+
+    $default  reduce using rule 33 (expr)
+
+
+State 120
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   26     | ID LBRACK expr RBRACK OF expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 26 (expr)
+
+
+State 121
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   28     | IF expr THEN expr ELSE expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 28 (expr)
+
+
+State 122
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   30     | FOR ID ASSIGN expr TO expr . DO expr
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+    DO      shift, and go to state 132
+
+
+State 123
+
+   59 typefield: ID COLON . ID
+
+    ID  shift, and go to state 133
+
+
+State 124
+
+   64 functiondeclaration: FUNCTION ID LPAREN RPAREN COLON . ID EQ expr
+
+    ID  shift, and go to state 134
+
+
+State 125
+
+   62 functiondeclaration: FUNCTION ID LPAREN RPAREN EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 135
+    lvalue  go to state 14
+
+
+State 126
+
+   63 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN . EQ expr
+   65                    | FUNCTION ID LPAREN typefields RPAREN . COLON ID EQ expr
+
+    COLON  shift, and go to state 136
+    EQ     shift, and go to state 137
+
+
+State 127
+
+   58 typefields: typefield COMMA . typefields
+
+    ID  shift, and go to state 109
+
+    typefields  go to state 138
+    typefield   go to state 112
+
+
+State 128
+
+   67 variabledeclaration: VAR ID COLON ID ASSIGN . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 139
+    lvalue  go to state 14
+
+
+State 129
+
+   55 type: LBRACE RBRACE .
+
+    $default  reduce using rule 55 (type)
+
+
+State 130
+
+   54 type: LBRACE typefields . RBRACE
+
+    RBRACE  shift, and go to state 140
+
+
+State 131
+
+   56 type: ARRAY OF . ID
+
+    ID  shift, and go to state 141
+
+
+State 132
+
+   30 expr: FOR ID ASSIGN expr TO expr DO . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 142
+    lvalue  go to state 14
+
+
+State 133
+
+   59 typefield: ID COLON ID .
+
+    $default  reduce using rule 59 (typefield)
+
+
+State 134
+
+   64 functiondeclaration: FUNCTION ID LPAREN RPAREN COLON ID . EQ expr
+
+    EQ  shift, and go to state 143
+
+
+State 135
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   62 functiondeclaration: FUNCTION ID LPAREN RPAREN EQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 62 (functiondeclaration)
+
+
+State 136
+
+   65 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN COLON . ID EQ expr
+
+    ID  shift, and go to state 144
+
+
+State 137
+
+   63 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 145
+    lvalue  go to state 14
+
+
+State 138
+
+   58 typefields: typefield COMMA typefields .
+
+    $default  reduce using rule 58 (typefields)
+
+
+State 139
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   67 variabledeclaration: VAR ID COLON ID ASSIGN expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 67 (variabledeclaration)
+
+
+State 140
+
+   54 type: LBRACE typefields RBRACE .
+
+    $default  reduce using rule 54 (type)
+
+
+State 141
+
+   56 type: ARRAY OF ID .
+
+    $default  reduce using rule 56 (type)
+
+
+State 142
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   30     | FOR ID ASSIGN expr TO expr DO expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 30 (expr)
+
+
+State 143
+
+   64 functiondeclaration: FUNCTION ID LPAREN RPAREN COLON ID EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 146
+    lvalue  go to state 14
+
+
+State 144
+
+   65 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN COLON ID . EQ expr
+
+    EQ  shift, and go to state 147
+
+
+State 145
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   63 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN EQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 63 (functiondeclaration)
+
+
+State 146
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   64 functiondeclaration: FUNCTION ID LPAREN RPAREN COLON ID EQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 64 (functiondeclaration)
+
+
+State 147
+
+   65 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN COLON ID EQ . expr
+
+    NUM     shift, and go to state 1
+    ID      shift, and go to state 2
+    STR     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    IF      shift, and go to state 6
+    WHILE   shift, and go to state 7
+    FOR     shift, and go to state 8
+    LET     shift, and go to state 9
+    BREAK   shift, and go to state 10
+    NIL     shift, and go to state 11
+
+    expr    go to state 148
+    lvalue  go to state 14
+
+
+State 148
+
+    7 expr: expr . PLUS expr
+    8     | expr . MINUS expr
+    9     | expr . TIMES expr
+   10     | expr . DIVIDE expr
+   11     | expr . OR expr
+   12     | expr . AND expr
+   13     | expr . EQ expr
+   14     | expr . LT expr
+   15     | expr . LE expr
+   16     | expr . GT expr
+   17     | expr . GE expr
+   18     | expr . NEQ expr
+   65 functiondeclaration: FUNCTION ID LPAREN typefields RPAREN COLON ID EQ expr .
+
+    PLUS    shift, and go to state 36
+    MINUS   shift, and go to state 37
+    TIMES   shift, and go to state 38
+    DIVIDE  shift, and go to state 39
+    EQ      shift, and go to state 40
+    NEQ     shift, and go to state 41
+    LT      shift, and go to state 42
+    LE      shift, and go to state 43
+    GT      shift, and go to state 44
+    GE      shift, and go to state 45
+    AND     shift, and go to state 46
+    OR      shift, and go to state 47
+
+    $default  reduce using rule 65 (functiondeclaration)
